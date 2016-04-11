@@ -47,7 +47,7 @@ public class SunSystem extends JPanel {
         }
 
         XYSeriesCollection data = new XYSeriesCollection();
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 10; i++) {
             data.addSeries(planetData.getSeries(i));
         }
 
