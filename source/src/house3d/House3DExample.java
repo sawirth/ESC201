@@ -31,7 +31,7 @@ public class House3DExample extends JFrame  {
         //Default values
         double ds = 8;
         double d0 = 10;
-        int offset = 390;
+        int offset = 420;
         int scale = 270;
 
         //Initialize fields
