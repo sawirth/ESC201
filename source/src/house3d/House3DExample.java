@@ -65,6 +65,7 @@ public class House3DExample extends JFrame  {
 
         //Y axis
         yCheckbox = new JCheckBox("Rotate Y");
+        yCheckbox.setSelected(true);
         yAngleTextField = new JFormattedTextField(format);
         yAngleTextField.setColumns(2);
         yAngleTextField.setValue(yAngle);
