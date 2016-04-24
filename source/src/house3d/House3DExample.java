@@ -8,7 +8,6 @@ import java.text.NumberFormat;
 public class House3DExample extends JFrame  {
 
     private House3D house;
-    private JButton updateButton;
     private JCheckBox xCheckbox;
     private JCheckBox yCheckbox;
     private JCheckBox zCheckbox;
@@ -24,22 +23,16 @@ public class House3DExample extends JFrame  {
     private double zAngle;
     private long ms;
 
-    private double ds;
-    private double d0;
-    private int offset;
-    private int scale;
-
-
     public House3DExample() {
         initUI();
     }
 
     private void initUI() {
         //Default values
-        ds = 8;
-        d0 = 10;
-        offset = 390;
-        scale = 270;
+        double ds = 8;
+        double d0 = 10;
+        int offset = 390;
+        int scale = 270;
 
         //Initialize fields
         xAngle = 1;
@@ -95,7 +88,7 @@ public class House3DExample extends JFrame  {
         settingsPanel.add(msTextField);
 
         //Update Button
-        updateButton = new JButton("Update");
+        JButton updateButton = new JButton("Update");
         updateButton.addActionListener(e -> updateValues());
         settingsPanel.add(updateButton);
 
@@ -130,7 +123,7 @@ public class House3DExample extends JFrame  {
             try {
                 Thread.sleep(ms);
             } catch (InterruptedException e) {
-                System.out.println(e);
+                e.printStackTrace();
             }
         }
     }
@@ -142,7 +135,7 @@ public class House3DExample extends JFrame  {
             zAngle = Double.parseDouble(zAngleTextField.getText());
             ms = Long.parseLong(msTextField.getText());
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
     }
 
@@ -150,5 +143,4 @@ public class House3DExample extends JFrame  {
     public static void main(String args[]) {
         new House3DExample();
     }
-
 }

@@ -14,7 +14,7 @@ public class House3D extends JPanel{
     private int scale;
 
     public House3D(double ds, double d0, int offset, int scale) {
-        points = new ArrayList<Point3D>();
+        points = new ArrayList<>();
 
         this.ds = ds;
         this.d0 = d0;
@@ -53,7 +53,6 @@ public class House3D extends JPanel{
             point.rotateY(angle);
         }
     }
-
 
 
     private void doDrawing(Graphics g, List<Point3D> points) {
@@ -142,5 +141,4 @@ public class House3D extends JPanel{
             this.z = -Math.sin(angle) * tempX + Math.cos(angle) * tempZ;
         }
     }
-
 }
