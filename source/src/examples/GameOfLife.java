@@ -1,12 +1,9 @@
 package examples;
 
 /* Importing packages needed. */
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Rectangle;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.*;
+import java.awt.*;
 
 /******************************************************************************
  This is our main class. It extends JPanel so we can use the drawing

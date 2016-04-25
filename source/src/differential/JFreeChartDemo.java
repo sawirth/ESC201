@@ -1,19 +1,15 @@
 package differential;
 
-import java.awt.*;
-import java.awt.geom.Rectangle2D;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-
-import javafx.util.Pair;
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
-import sun.org.mozilla.javascript.internal.Function;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
+
 
 
 public class JFreeChartDemo extends JPanel {
