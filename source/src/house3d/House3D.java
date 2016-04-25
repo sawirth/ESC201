@@ -98,6 +98,8 @@ public class House3D extends JPanel{
         double y2 = this.offset + this.scale *(this.ds / (this.d0 + point2.z)) * point2.y;
 
         g.setColor(color);
+        g.setStroke(new BasicStroke(3));
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g.drawLine((int) x1, (int) y1, (int)x2, (int) y2);
     }
 
