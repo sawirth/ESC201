@@ -10,37 +10,41 @@ public class ColorMap {
         int b = 0;
 
         double cv = colorValue;
-        //TODO implement rainbow color map code
 
 
         if (cv > 1 && cv < 0) {
             return Color.BLACK;
         }
 
-        if (cv < 0.2) {
+        if (cv >= 0 && cv < 0.2) {
             r = 255;
-            g = (int) (255 * cv);
+            g = (int) (cv / 0.2 * 255);
             b = 0;
         } else if (cv >= 0.2 && cv < 0.4) {
-            r = (int) (255 * cv);
+            r = (int) (255 * (1 - (cv - 0.2) / 0.2));
             g = 255;
             b = 0;
         } else if (cv >= 0.4 && cv < 0.6) {
             r = 0;
             g = 255;
-            b = (int) (255 * cv);
+            b = (int) (255 * (cv - 0.4) / 0.2);
         } else if (cv >= 0.6 && cv < 0.8) {
             r = 0;
-            g = (int) (255 * cv);
+            g = (int) (255 * (1 - (cv - 0.6) / 0.2));
             b = 255;
-        } else if (cv >= 0.8) {
-            r = (int) (255 * cv);
+        } else if (cv >= 0.8 && cv < 1) {
+            r = (int) (255 * (cv - 0.8) / 0.2);
             g = 0;
             b = 255;
         } else {
             return Color.BLACK;
         }
 
-        return Color.BLACK;
+        try {
+            return new Color(r, g, b);
+        } catch (Exception e) {
+            System.out.println("(r, g, b) = (" + r + ", " + g + ", " + b + ")");
+            return Color.white;
+        }
     }
 }

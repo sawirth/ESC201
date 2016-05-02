@@ -14,8 +14,8 @@ public class SORExample extends JFrame {
 
     private void initUI() {
         //Default values
-        int J = 100;
-        int L = 100;
+        int J = 1000;
+        int L = 1000;
         double omega = 2 / (1 + Math.PI / J);
 
         setTitle("SOR Example");
@@ -24,8 +24,9 @@ public class SORExample extends JFrame {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
 
-        add(new SOR(J, L, omega));
-
+        SOR sor = new SOR(J, L, omega);
+        add(sor);
+        sor.repaint();
         repaint();
     }
 
