@@ -53,6 +53,9 @@ public class SOR extends JPanel{
 
     private void calculate() {
 
+        //TODO: parallelisieren der Berechnung
+        // Thread nimmt Parameter für minRow und maxRow
+
         double maxDelta = 0;
         int counter = 0;
         System.out.println("Start Calculating...");
