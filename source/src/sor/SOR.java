@@ -1,24 +1,27 @@
 package sor;
 
+import parallel.Barrier;
 
-import house3d.ColorMap;
+import java.util.ArrayList;
+import java.util.List;
 
-import javax.swing.*;
-import java.awt.*;
-import java.lang.reflect.Array;
 
-public class SOR extends JPanel{
+public class SOR {
 
-    private double omega;
-    private double u[][];
-    private double R[][];
-    private int J;
-    private int L;
+    public double omega;
+    public Barrier barrier;
+    public double u[][];
+    public double R[][];
+    public int J;
+    public int L;
+    private static final int NUM_THREADS = 4;
+
 
     public SOR(int J, int L, double omega) {
         this.J = J;
         this.L = L;
         this.omega = omega;
+        barrier = new Barrier();
 
         initializeArrays();
         calculate();
@@ -49,62 +52,46 @@ public class SOR extends JPanel{
                 }
             }
         }
-    }
 
-    private void calculate() {
-
-        //TODO: parallelisieren der Berechnung
-        // Thread nimmt Parameter für minRow und maxRow
-
-        double maxDelta = 0;
-        int counter = 0;
-        System.out.println("Start Calculating...");
-
-        do {
-            maxDelta = 0;
-            double delta = 0;
-            for (int l = 1; l < L - 1; l++) {
-                for (int j = 1 + (l % 2); j < J - 1; j += 2) {
-                    delta = calculateDelta(j, l);
-                    u[j][l] = u[j][l] + delta;
-                    maxDelta = Math.max(maxDelta, delta);
-                }
-            }
-
-            for (int l = 1; l < L - 1; l++) {
-                for (int j = 1 + ((1 + l) % 2); j < J - 1; j += 2) {
-                    delta = calculateDelta(j, l);
-                    u[j][l] += delta;
-                    maxDelta = Math.max(maxDelta, delta);
-                }
-            }
-            counter++;
-
-        } while (maxDelta > 1);
-        System.out.println("Finished Calculations: Iterations: " + counter);
-        repaint();
-    }
-
-    private double calculateDelta(int j, int l) {
-        return R[j][l] * (u[j + 1][l] + u[j - 1][l] + u[j][l + 1] + u[j][l - 1] - 4 * u[j][l]);
-    }
-
-
-    @Override
-    public void paint(Graphics g) {
-        Graphics2D g2d = (Graphics2D) g;
-
-        for (int l = 0; l < L; l++) {
-            for (int j = 0; j < J; j++) {
-                g2d.setColor(ColorMap.getRainbowColor(u[j][l] / 1000.0 ));
-                g2d.drawLine(l, j, l, j);
-            }
+        //Zweite Metallplatte
+        for (int l = 150; l < 700; l++) {
+            u[150][l] = 1000;
+            R[150][l] = 0;
         }
     }
 
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
+
+    private void calculate() {
+
+        int[] rows = {1, 249, 499, 749, 998};
+//        int[] rows = {1, 449, 998};
+//        int[] rows = {1, 125, 250, 375, 500, 625, 750, 875, 998};
+
+
+        List<SorThread> threads = new ArrayList<>();
+
+        for (int i = 0; i < NUM_THREADS; i++) {
+            System.out.println("Create Thread " + i);
+            SorThread sorThread = new SorThread(i, rows[i], rows[i + 1], barrier, this);
+            sorThread.start();
+            threads.add(sorThread);
+        }
+
+        for (SorThread thread : threads) {
+            if (thread.isAlive()) {
+                try {
+                    thread.join();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            System.out.println("Thread " + thread.id  + " joined");
+        }
+    }
+
+
+    public double[][] getU() {
+        return u;
     }
 }
 

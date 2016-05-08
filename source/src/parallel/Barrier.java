@@ -6,8 +6,7 @@ public class Barrier {
     private int nThreads;
     private int nWaiting;
 
-    public Barrier(int nThreads) {
-        this.nThreads = nThreads;
+    public Barrier() {
         nWaiting = 0;
     }
 
@@ -23,5 +22,13 @@ public class Barrier {
             notifyAll();
             nWaiting = 0;
         }
+    }
+
+    public void release() {
+        nThreads--;
+    }
+
+    public void acquire() {
+        nThreads++;
     }
 }

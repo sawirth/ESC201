@@ -1,10 +1,7 @@
 package sor;
 
 
-import com.sun.corba.se.impl.orbutil.graph.Graph;
-
 import javax.swing.*;
-import java.awt.*;
 
 public class SORExample extends JFrame {
 
@@ -19,15 +16,16 @@ public class SORExample extends JFrame {
         double omega = 2 / (1 + Math.PI / J);
 
         setTitle("SOR Example");
-        setSize(1000, 1000);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setVisible(true);
 
         SOR sor = new SOR(J, L, omega);
-        add(sor);
-        sor.repaint();
-        repaint();
+        SOR_Panel sor_panel = new SOR_Panel(sor.getU(), L, J);
+        add(sor_panel);
+        sor_panel.repaint();
+        pack();
+        setLocationRelativeTo(null);
+        setVisible(true);
     }
 
 

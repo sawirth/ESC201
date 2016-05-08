@@ -20,7 +20,7 @@ public class MyThread extends Thread {
 
         final int N = 2;
         MyThread[] t = new MyThread[N];
-        Barrier barrier = new Barrier(N);
+        Barrier barrier = new Barrier();
 
         //Erstellen und starten
         for (int i = 0; i < N; i++) {
