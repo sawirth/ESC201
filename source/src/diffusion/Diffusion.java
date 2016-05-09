@@ -4,26 +4,28 @@ package diffusion;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
-import org.jfree.data.xy.XYIntervalSeriesCollection;
+import org.jfree.chart.axis.NumberAxis;
+import org.jfree.chart.plot.XYPlot;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Diffusion extends JPanel {
 
     private JFreeChart chart;
 
+    public Diffusion() {
+        ChartPanel chartPanel = new ChartPanel(this.chart);
+        add(chartPanel);
+    }
+
     public static void main(String[] args) {
         JFrame window = new JFrame("Diffusion");
         window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-
         Diffusion diffPanel = new Diffusion();
-//        ChartPanel chartPanel = new ChartPanel();
         window.getContentPane().add(diffPanel);
         window.pack();
         window.setVisible(true);
@@ -41,7 +43,6 @@ public class Diffusion extends JPanel {
         double deltaX = L / N;
         double D = 1;
 
-
         //Array initialisieren
         for (int i = 0; i < 100; i++) {
             if (Math.abs(deltaX * i - L / 2.0) <= lambda) {
@@ -56,6 +57,12 @@ public class Diffusion extends JPanel {
         dataset.addSeries(series);
         chart = ChartFactory.createXYLineChart("Diffusion", "x", "u", dataset);
         chart.setAntiAlias(true);
+
+        //Auto range disable
+        NumberAxis yAxis = new NumberAxis();
+        yAxis.setAutoRange(false);
+        XYPlot plot = (XYPlot) chart.getPlot();
+        plot.setRangeAxis(yAxis);
 
         repaint();
 
@@ -72,15 +79,16 @@ public class Diffusion extends JPanel {
                 series.add(i, u[i]);
             }
 
+            t += deltaT;
             repaint();
 
             try {
-                Thread.sleep(200);
+                Thread.sleep(100);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
 
-            t += deltaT;
+
         }
     }
 
