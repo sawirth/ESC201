@@ -87,8 +87,6 @@ public class Diffusion extends JPanel {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-
-
         }
     }
 
