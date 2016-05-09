@@ -20,14 +20,13 @@ public class SorThread extends Thread{
 
     @Override
     public void run() {
-        double maxDelta = 0;
         int counter = 0;
         System.out.println("Thread " + this.id + " -- Start Calculating...");
 
         barrier.acquire();
         do {
-            maxDelta = 0;
-            double delta = 0;
+            double maxDelta = 0;
+            double delta;
             for (int l = minRow; l <= maxRow; l++) {
                 for (int j = 1 + (l % 2); j < this.sor.J - 1; j += 2) {
                     delta = calculateDelta(j, l);
@@ -47,8 +46,8 @@ public class SorThread extends Thread{
             }
             barrier.reached();
             counter++;
-
-        } while (maxDelta > 1);
+            this.sor.maxDelta = Math.max(maxDelta, this.sor.maxDelta);
+        } while (this.sor.maxDelta > 1);
         System.out.println("Thread " + this.id + " -- Finished Calculations: Iterations: " + counter);
         barrier.release();
     }
