@@ -5,6 +5,7 @@ import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.NumberAxis;
+import org.jfree.chart.axis.NumberTickUnit;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
@@ -61,12 +62,14 @@ public class Diffusion extends JPanel {
         //Auto range disable
         NumberAxis yAxis = new NumberAxis();
         yAxis.setAutoRange(false);
+        yAxis.setTickUnit(new NumberTickUnit(0.1));
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.setRangeAxis(yAxis);
 
         repaint();
 
         //Ein Zeitstep berechnen und zeichnen
+        long sleeptime = 50;
         double t = 0;
         double alpha = (D * deltaT) / (deltaX * deltaX);
         while (t < 1) {
@@ -76,14 +79,14 @@ public class Diffusion extends JPanel {
 
             for (int i = 1; i < 99; i++) {
                 u[i] = u_old[i] + alpha * (u_old[i + 1] - 2 * u_old[i] + u_old[i - 1]);
-                series.add(i, u[i]);
+                series.add(i * deltaX, u[i]);
             }
 
             t += deltaT;
             repaint();
 
             try {
-                Thread.sleep(100);
+                Thread.sleep(sleeptime);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
