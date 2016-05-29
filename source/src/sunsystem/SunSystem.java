@@ -25,7 +25,7 @@ public class SunSystem extends JPanel {
     public static void main(String[] args) {
         JFrame top = new JFrame("Sunsystem");
         top.setBounds(100, 100, 1300, 1000);
-        top.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        top.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         SunSystem sunSystem = new SunSystem();
         top.getContentPane().add(sunSystem);
         top.setVisible(true);
@@ -47,7 +47,7 @@ public class SunSystem extends JPanel {
         }
 
         XYSeriesCollection data = new XYSeriesCollection();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 5; i++) {
             data.addSeries(planetData.getSeries(i));
         }
 

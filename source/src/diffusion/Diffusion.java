@@ -75,7 +75,10 @@ public class Diffusion extends JPanel {
         while (t < 1) {
 
             series.clear();
-            double u_old[] = u;
+            double u_old[] = new double[u.length];
+            for (int i = 0; i < u.length; i++) {
+                u_old[i] = u[i];
+            }
 
             for (int i = 1; i < 99; i++) {
                 u[i] = u_old[i] + alpha * (u_old[i + 1] - 2 * u_old[i] + u_old[i - 1]);

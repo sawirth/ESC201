@@ -20,7 +20,7 @@ public class LogisticMap extends JPanel {
     public static void main(String[] args) {
         JFrame top = new JFrame("LogisticMap");
         top.setBounds(100, 100, 1300, 1000);
-        top.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        top.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         LogisticMap logisticMap = new LogisticMap();
         top.getContentPane().add(logisticMap);
         top.setVisible(true);
@@ -47,6 +47,7 @@ public class LogisticMap extends JPanel {
         XYSeriesCollection dataset = new XYSeriesCollection();
         dataset.addSeries(series);
         chart = ChartFactory.createScatterPlot("LogisticMap", "a", "x_n", dataset);
+        chart.setAntiAlias(true);
         XYPlot plot = chart.getXYPlot();
         XYDotRenderer renderer = new CustomRenderer(1, 1);
         plot.setRenderer(renderer);
