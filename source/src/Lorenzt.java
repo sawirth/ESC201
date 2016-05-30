@@ -9,8 +9,8 @@ public class Lorenzt extends java.applet.Applet implements Runnable{
     float      hue=0;
 
     public void init() {
-        height = size().height;
-        width = size().width;
+        height = getSize().height;
+        width = getSize().width;
         setBackground(Color.black);
         setForeground(Color.white);
         cs = 800.F;

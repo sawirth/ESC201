@@ -16,8 +16,8 @@ public class LeapFrogDemo extends JPanel{
 
     public static void main(String[] args) {
         JFrame top = new JFrame("Leap-Frog");
-        top.setBounds(100, 100, 800, 600);
-        top.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        top.setBounds(100, 0, 1300, 1000);
+        top.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         LeapFrogDemo leapFrogDemo = new LeapFrogDemo();
         top.getContentPane().add(leapFrogDemo);
         top.setVisible(true);
@@ -86,7 +86,7 @@ public class LeapFrogDemo extends JPanel{
         h = 0.1;
 
         for (int j = 0; j < 6; j++) {
-            XYSeries pendel = new XYSeries("Serie " + j, false);
+            XYSeries pendel = new XYSeries("Pendel  " + j, false);
 
             p = p0;
             q = q0 + 0.5 * j;
@@ -102,7 +102,7 @@ public class LeapFrogDemo extends JPanel{
             seriesCollection.addSeries(pendel);
         }
 
-        seriesCollection.removeAllSeries();
+//        seriesCollection.removeAllSeries();
         seriesCollection.addSeries(HRK_series);
 
 

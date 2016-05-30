@@ -3,7 +3,7 @@ package newtonAlgorithm;
 public class SquareNewton {
 
     public static void main(String[] args) {
-        System.out.println(sqrt(12));
+        System.out.println(sqrt(9));
     }
 
     public static double sqrt(double c) {

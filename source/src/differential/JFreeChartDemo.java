@@ -1,6 +1,7 @@
 package differential;
 
 import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
@@ -15,16 +16,25 @@ import java.awt.geom.Rectangle2D;
 public class JFreeChartDemo extends JPanel {
 
     private static final long serialVersionUID = 1L;
+    private JFreeChart phasenChart;
     private JFreeChart chart;
 
     public static void main(String[] args) {
         JFrame top = new JFrame("JFreeChart Test");
-        top.setBounds(100, 100, 800, 600);
+        top.setBounds(100, 100, 1600, 600);
         top.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JFreeChartDemo jfc = new JFreeChartDemo();
         top.getContentPane().add(jfc);
         top.setVisible(true);
         jfc.run();
+    }
+
+    public JFreeChartDemo() {
+        ChartPanel chartPanel = new ChartPanel(phasenChart);
+        ChartPanel chartPanel1 = new ChartPanel(chart);
+        setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+        add(chartPanel);
+        add(chartPanel1);
     }
 
     public void run() {
@@ -67,20 +77,25 @@ public class JFreeChartDemo extends JPanel {
         //XYLine Chart
         seriesCollection.addSeries(series_a);
         seriesCollection.addSeries(series_e);
-//        chart = ChartFactory.createXYLineChart("Plot", "t", "e, a", seriesCollection);
+        chart = ChartFactory.createXYLineChart("Plot", "t", "e, a", seriesCollection);
 
         // Phasenplot
         XYDataset phasenData = new XYSeriesCollection(series_ae);
-        chart = ChartFactory.createXYLineChart("Plot", "a", "e", phasenData);
+        phasenChart = ChartFactory.createXYLineChart("Plot", "a", "e", phasenData);
 
         repaint();
     }
 
 
     public void paint(Graphics g) {
+        if (phasenChart != null) {
+            Rectangle b = g.getClipBounds();
+            phasenChart.draw((Graphics2D)g, new Rectangle2D.Double(b.x, b.y, b.width / 2, b.height));
+        }
+
         if (chart != null) {
             Rectangle b = g.getClipBounds();
-            chart.draw((Graphics2D)g, new Rectangle2D.Double(b.x, b.y, b.width, b.height));
+            chart.draw((Graphics2D) g, new Rectangle2D.Double(b.x + b.width / 2, b.y, b.width / 2, b.height));
         }
     }
 }

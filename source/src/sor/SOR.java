@@ -14,8 +14,8 @@ public class SOR {
     public double R[][];
     public int J;
     public int L;
-    private static final int NUM_THREADS = 2;
-    public double maxDelta = 2;
+    private static final int NUM_THREADS = 1;
+    public double maxDelta = 0;
 
 
     public SOR(int J, int L, double omega) {
@@ -65,9 +65,9 @@ public class SOR {
     private void calculate() {
 
 //        int[] rows = {1, 249, 499, 749, 998};
-        int[] rows = {1, 449, 998};
+//        int[] rows = {1, 449, 998};
 //        int[] rows = {1, 125, 250, 375, 500, 625, 750, 875, 998};
-//        int[] rows = {1, 998};
+        int[] rows = {1, 998};
 
 
         List<SorThread> threads = new ArrayList<>();

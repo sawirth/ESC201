@@ -7,6 +7,7 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.axis.NumberTickUnit;
 import org.jfree.chart.plot.XYPlot;
+import org.jfree.chart.renderer.xy.DeviationRenderer;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
@@ -65,7 +66,7 @@ public class CIR extends JPanel{
 
 
             //Rechteck
-            if (deltaX * i <= 0.3 || deltaX * i >= 0.7) {
+            if (i <= rect_u_cir.length / 3.0 || i >= rect_u_cir.length * 0.7) {
                 rect_u_cir[i] = 0;
                 rect_u_lax[i] = 0;
             } else {
@@ -92,6 +93,13 @@ public class CIR extends JPanel{
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.setRangeAxis(yAxis);
 
+        //Renderer
+        DeviationRenderer renderer = new DeviationRenderer(true, false);
+        renderer.setSeriesPaint(0, Color.RED);
+        renderer.setSeriesPaint(1, Color.BLUE);
+        renderer.setSeriesPaint(2, Color.GREEN);
+        renderer.setSeriesPaint(3, Color.MAGENTA);
+        plot.setRenderer(renderer);
         repaint();
 
         //Veränderung
@@ -106,8 +114,8 @@ public class CIR extends JPanel{
             for (int i = 0; i < N; i++ ) {
                 gauss_u_cir_old[i] = gauss_u_cir[i];
                 gauss_u_lax_old[i] = gauss_u_lax[i];
-                rect_u_cir_old[i] = gauss_u_cir[i];
-                rect_u_lax_old[i] = gauss_u_lax[i];
+                rect_u_cir_old[i] = rect_u_cir[i];
+                rect_u_lax_old[i] = rect_u_lax[i];
             }
 
             gauss_cir_series.clear();
@@ -133,14 +141,18 @@ public class CIR extends JPanel{
 
             gauss_u_cir[N - 1] = gauss_u_cir[1];
             gauss_u_cir[0] = gauss_u_cir[N - 2];
-
             gauss_u_lax[N - 1] = gauss_u_lax[1];
             gauss_u_lax[0] = gauss_u_lax[N - 2];
+
+            rect_u_cir[N - 1] = rect_u_cir[1];
+            rect_u_cir[0] = rect_u_cir[N - 2];
+            rect_u_lax[N - 1] = rect_u_lax[1];
+            rect_u_lax[0] = rect_u_lax[N - 2];
 
             //Paint and wait
             repaint();
             try {
-                Thread.sleep(50);
+                Thread.sleep(70);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

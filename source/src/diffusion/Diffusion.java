@@ -12,6 +12,8 @@ import org.jfree.data.xy.XYSeriesCollection;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.geom.Rectangle2D;
 
 public class Diffusion extends JPanel {
@@ -37,7 +39,7 @@ public class Diffusion extends JPanel {
 
         double u[] = new double[100];
         double lambda = 0.1;
-        double deltaT = 4.9E-5;
+        double deltaT = 5.1E-5;
         XYSeries series = new XYSeries(false);
         double L = 1;
         double N = 100;
@@ -72,21 +74,21 @@ public class Diffusion extends JPanel {
         long sleeptime = 50;
         double t = 0;
         double alpha = (D * deltaT) / (deltaX * deltaX);
+        int counter = 0;
         while (t < 1) {
 
             series.clear();
             double u_old[] = new double[u.length];
-            for (int i = 0; i < u.length; i++) {
-                u_old[i] = u[i];
-            }
+            System.arraycopy(u, 0, u_old, 0, u.length);
 
-            for (int i = 1; i < 99; i++) {
-                u[i] = u_old[i] + alpha * (u_old[i + 1] - 2 * u_old[i] + u_old[i - 1]);
-                series.add(i * deltaX, u[i]);
+            for (int j = 1; j < 99; j++) {
+                u[j] = u_old[j] + alpha * (u_old[j + 1] - 2 * u_old[j] + u_old[j - 1]);
+                series.add(j * deltaX, u[j]);
             }
 
             t += deltaT;
             repaint();
+            counter++;
 
             try {
                 Thread.sleep(sleeptime);
@@ -108,4 +110,6 @@ public class Diffusion extends JPanel {
     public Dimension getPreferredSize() {
         return new Dimension(1000, 1000);
     }
+
+
 }
