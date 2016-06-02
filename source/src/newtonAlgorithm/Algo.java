@@ -22,7 +22,7 @@ public class Algo extends JPanel {
     public double newton(IFunction f, IFunction df, double x0) {
         double x1 = x0;
 
-        while (Math.abs(x1- x0 / x1) < 0.1) {
+        while (Math.abs(x1- x0 / x1) > 0.1) {
             x1 = x0 - f.f(x0)/df.f(x0);
             x0 = x1;
         }

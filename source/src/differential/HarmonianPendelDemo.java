@@ -10,7 +10,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
-public class LeapFrogDemo extends JPanel{
+public class HarmonianPendelDemo extends JPanel{
 
     private JFreeChart chart;
 
@@ -18,10 +18,10 @@ public class LeapFrogDemo extends JPanel{
         JFrame top = new JFrame("Leap-Frog");
         top.setBounds(100, 0, 1300, 1000);
         top.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        LeapFrogDemo leapFrogDemo = new LeapFrogDemo();
-        top.getContentPane().add(leapFrogDemo);
+        HarmonianPendelDemo harmonianPendelDemo = new HarmonianPendelDemo();
+        top.getContentPane().add(harmonianPendelDemo);
         top.setVisible(true);
-        leapFrogDemo.run();
+        harmonianPendelDemo.run();
     }
 
     public void run() {
@@ -70,11 +70,11 @@ public class LeapFrogDemo extends JPanel{
         h = 0.1;
         for (int i = 0; i < 1000; i++) {
             t[i] = i * h;
-            yn = RungeKutta.MidpointRK(HRK, t[i], yn, h);
+            yn = RungeKutta.MidpointRK(HRK, yn, h);
             HRK_series.add(yn[0], yn[1]);
-            System.out.println(yn[0] + " " + yn[1]);
         }
 
+//        seriesCollection.addSeries(HRK_series);
 
         /*
         PENDEL
@@ -103,7 +103,7 @@ public class LeapFrogDemo extends JPanel{
         }
 
 //        seriesCollection.removeAllSeries();
-        seriesCollection.addSeries(HRK_series);
+
 
 
 //        chart = ChartFactory.createXYLineChart("Pendel Plot", "p", "q", pendelSets);

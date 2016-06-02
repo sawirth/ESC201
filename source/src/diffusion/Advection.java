@@ -15,11 +15,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
-public class CIR extends JPanel{
+public class Advection extends JPanel{
 
     private JFreeChart chart;
 
-    public CIR() {
+    public Advection() {
         ChartPanel chartPanel = new ChartPanel(this.chart);
         add(chartPanel);
     }
@@ -27,17 +27,16 @@ public class CIR extends JPanel{
     public static void main(String args[]) {
         JFrame window = new JFrame("Hydrodynamik");
         window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        CIR cirPanel = new CIR();
-        window.getContentPane().add(cirPanel);
+        Advection advectionPanel = new Advection();
+        window.getContentPane().add(advectionPanel);
         window.pack();
         window.setVisible(true);
-        cirPanel.run();
+        advectionPanel.run();
     }
 
     private void run() {
         double alpha = 1.0;
         double beta = 8.0;
-        double a = 1;
         int N = 100;
         double deltaX = 2.0 / N;
         double deltaT = 0.016;
@@ -90,6 +89,8 @@ public class CIR extends JPanel{
         NumberAxis yAxis = new NumberAxis();
         yAxis.setAutoRange(false);
         yAxis.setTickUnit(new NumberTickUnit(0.1));
+        yAxis.setUpperBound(1.3);
+        yAxis.setLowerBound(-0.3);
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.setRangeAxis(yAxis);
 
@@ -152,7 +153,7 @@ public class CIR extends JPanel{
             //Paint and wait
             repaint();
             try {
-                Thread.sleep(70);
+                Thread.sleep(50);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

@@ -13,7 +13,7 @@ import java.awt.geom.Rectangle2D;
 
 
 
-public class JFreeChartDemo extends JPanel {
+public class LotkaVolterraDemo extends JPanel {
 
     private static final long serialVersionUID = 1L;
     private JFreeChart phasenChart;
@@ -22,14 +22,14 @@ public class JFreeChartDemo extends JPanel {
     public static void main(String[] args) {
         JFrame top = new JFrame("JFreeChart Test");
         top.setBounds(100, 100, 1600, 600);
-        top.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        JFreeChartDemo jfc = new JFreeChartDemo();
+        top.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        LotkaVolterraDemo jfc = new LotkaVolterraDemo();
         top.getContentPane().add(jfc);
         top.setVisible(true);
         jfc.run();
     }
 
-    public JFreeChartDemo() {
+    public LotkaVolterraDemo() {
         ChartPanel chartPanel = new ChartPanel(phasenChart);
         ChartPanel chartPanel1 = new ChartPanel(chart);
         setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
@@ -40,7 +40,7 @@ public class JFreeChartDemo extends JPanel {
     public void run() {
 
         //initial values
-        int n = 300;
+        int n = 250;
         double e0 = 1.06 / 0.02;
         double a0 = 2. / 0.01;
         double h = 0.1;
@@ -65,7 +65,7 @@ public class JFreeChartDemo extends JPanel {
         System.out.println("Start: e = " + e[0] + " || a = " + a[0]);
         for (int i = 0; i < t.length; i++) {
             t[i] = i * h;
-            yn = RungeKutta.MidpointRK(LK, t[i], yn, h);
+            yn = RungeKutta.MidpointRK(LK, yn, h);
             e[i] = yn[0];
             a[i] = yn[1];
 
@@ -77,11 +77,13 @@ public class JFreeChartDemo extends JPanel {
         //XYLine Chart
         seriesCollection.addSeries(series_a);
         seriesCollection.addSeries(series_e);
-        chart = ChartFactory.createXYLineChart("Plot", "t", "e, a", seriesCollection);
+        chart = ChartFactory.createXYLineChart("Entwicklung über die Zeit", "t", "e, a", seriesCollection);
+        chart.setAntiAlias(true);
 
         // Phasenplot
         XYDataset phasenData = new XYSeriesCollection(series_ae);
-        phasenChart = ChartFactory.createXYLineChart("Plot", "a", "e", phasenData);
+        phasenChart = ChartFactory.createXYLineChart("Phasen-Plot", "a", "e", phasenData);
+        phasenChart.setAntiAlias(true);
 
         repaint();
     }

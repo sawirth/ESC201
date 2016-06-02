@@ -39,7 +39,7 @@ public class Diffusion extends JPanel {
 
         double u[] = new double[100];
         double lambda = 0.1;
-        double deltaT = 5.1E-5;
+        double deltaT = 4.9E-5;
         XYSeries series = new XYSeries(false);
         double L = 1;
         double N = 100;

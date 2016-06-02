@@ -3,7 +3,7 @@ package differential;
 
 public class RungeKutta {
 
-    public static double [] MidpointRK(IFunction f, double xn, double[] yn, double h){
+    public static double [] MidpointRK(IFunction f, double[] yn, double h){
 
         double[] k1 = f.eval(yn);
         for (int i = 0; i < k1.length; i++){

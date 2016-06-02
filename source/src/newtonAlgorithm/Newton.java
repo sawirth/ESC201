@@ -16,7 +16,6 @@ import java.awt.*;
 
 public class Newton extends JPanel {
 
-    double E;
     double M;
 
 	/* Define global constants, e.g. the window size (in pixels). */
@@ -54,7 +53,7 @@ public class Newton extends JPanel {
         top.getContentPane().add(my_class_instance);
 
 		/* Make the window visible. */
-        top.setVisible(true);
+//        top.setVisible(true);
 
 		/* Run the main function run() where we start the simulation. */
         my_class_instance.run();
@@ -78,13 +77,19 @@ public class Newton extends JPanel {
 
 
     public double newton(IFunction f, IFunction df, double x0) {
-        double x1 = x0;
 
-        while (Math.abs(x1- x0 / x1) < 0.1) {
+        double f_value = f.f(x0);
+        double df_value = df.f(x0);
+        double x1;
+        int counter = 0;
+        double old_x;
+        do {
             x1 = x0 - f.f(x0)/df.f(x0);
+            old_x = x0;
             x0 = x1;
-        }
-
+            counter++;
+        } while (Math.abs((x1 - old_x) / x1) > 0.1);
+        System.out.println("Iterations: " + counter);
         return x1;
     }
 
@@ -96,19 +101,7 @@ public class Newton extends JPanel {
         fKepler f = new fKepler(0.5);
         dfKepler df = new dfKepler(0.5);
 
-        while (true) {
-            // Calculate E
-
-            //
-
-			/* Send a paint message to repaint the window. */
-            repaint();
-
-			/* Short delay so we can see how the program evolves. */
-            try {
-                Thread.sleep(250);
-            } catch (InterruptedException e) {}
-        }
+        System.out.println(newton(f, df, 8));
     }
 
     class fKepler implements IFunction {
@@ -119,7 +112,7 @@ public class Newton extends JPanel {
         }
 
         public double f(double x) {
-            return E - this.e * Math.sin(E) - M;
+            return x - this.e * Math.sin(x) - M;
         }
     }
 
@@ -131,7 +124,7 @@ public class Newton extends JPanel {
         }
 
         public double f(double x) {
-            return 1 - this.e * Math.cos(E);
+            return 1 - this.e * Math.cos(x);
         }
     }
 }
